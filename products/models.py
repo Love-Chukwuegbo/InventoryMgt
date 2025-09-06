@@ -42,5 +42,36 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
     
-    
+
 User = settings.AUTH_USER_MODEL
+
+
+class ProductCategory(models.Model):
+    category_choices =  [("Battery"," Battery")
+    ("Brakepads","Brakepads"),
+    ("Cleaner","Cleaner"),
+    ("Coolant", " Coolant"),
+    ("Filters", "Filters"),
+    ("Linkages", "Linkages"),
+    ("Lubricants",  "Lubricants"),
+    ("Tires", "Tires")]
+    category = models.CharField(max_length =50, choices = category_choices)
+    def __str__(self):
+        return self.category
+
+class Product(models.Model):
+    name = models.CharField(max_length=150)
+    category = models.ForeignKey(ProductCategory, on_delete= models.CASCADE )
+    image = models. ImageField(upload_to="profile/photos/", null =True, blank= True)
+    Quantity =models.IntegerField()
+    unit_price = models.IntegerField()
+    unit_cost = models.IntegerField()
+    sales_unit = models.IntegerField(
+    sku =models.CharField(max_length=50, unique= True,blank=True)
+    )
+    def save(self):
+        if not self.sku:
+            self.sku = str(models.uuid.uuid4()).replace('-', "" )[ :12]
+            return super().save()
+    def __str__(self):
+        return self.name
