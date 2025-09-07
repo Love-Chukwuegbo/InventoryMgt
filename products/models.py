@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import  BaseUserManager, AbstractBaseUser,PermissionsMixin
-
+import uuid
 # Create your models here.
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, email = None, password = None, **extra_fields):
@@ -47,7 +47,7 @@ User = settings.AUTH_USER_MODEL
 
 
 class ProductCategory(models.Model):
-    category_choices =  [("Battery"," Battery")
+    category_choices =  [("Battery"," Battery"),
     ("Brakepads","Brakepads"),
     ("Cleaner","Cleaner"),
     ("Coolant", " Coolant"),
@@ -66,12 +66,12 @@ class Product(models.Model):
     Quantity =models.IntegerField()
     unit_price = models.IntegerField()
     unit_cost = models.IntegerField()
-    sales_unit = models.IntegerField(
+    sales_unit = models.IntegerField()
     sku =models.CharField(max_length=50, unique= True,blank=True)
-    )
+    
     def save(self):
         if not self.sku:
-            self.sku = str(models.uuid.uuid4()).replace('-', "" )[ :12]
+            self.sku = str(uuid.uuid4()).replace('-', "" )[ :12]
             return super().save()
     def __str__(self):
         return self.name

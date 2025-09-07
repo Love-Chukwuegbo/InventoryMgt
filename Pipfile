@@ -9,6 +9,7 @@ mysqlclient = "*"
 pymysql = "*"
 python-dotenv = "*"
 djangorestframework = "*"
+pillow = "*"
 
 [dev-packages]
 
