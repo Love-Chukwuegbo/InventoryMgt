@@ -10,6 +10,8 @@ pymysql = "*"
 python-dotenv = "*"
 djangorestframework = "*"
 pillow = "*"
+dj-rest-auth = "*"
+django-allauth = "*"
 
 [dev-packages]
 
