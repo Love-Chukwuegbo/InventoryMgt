@@ -70,7 +70,9 @@ class Product(models.Model):
     unit_cost = models.IntegerField()
     # sales_unit = models.IntegerField()
     sku =models.CharField(max_length=50, unique= True,blank=True)
+    created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
     
+
     def save(self):
         if not self.sku:
             self.sku = str(uuid.uuid4()).replace('-', "" )[ :12]
