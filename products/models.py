@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import  BaseUserManager, AbstractBaseUser,PermissionsMixin
+from django.core.exceptions import ObjectDoesNotExist
 import uuid
 # Create your models here.
 class CustomUserManager(BaseUserManager):
@@ -63,11 +64,11 @@ class ProductCategory(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=150)
     category = models.ForeignKey(ProductCategory, on_delete= models.CASCADE )
-    image = models. ImageField(upload_to="profile/photos/", null =True, blank= True)
+    # image = models. ImageField(upload_to="profile/photos/", null =True, blank= True)
     Quantity =models.IntegerField()
     unit_price = models.IntegerField()
     unit_cost = models.IntegerField()
-    sales_unit = models.IntegerField()
+    # sales_unit = models.IntegerField()
     sku =models.CharField(max_length=50, unique= True,blank=True)
     
     def save(self):
@@ -76,4 +77,34 @@ class Product(models.Model):
             return super().save()
     def __str__(self):
         return self.name
-    
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
+class ProductInventory(models.Model):
+    product = models.OneToOneField(Product, on_delete=models.CASCADE, related_name='inventory')
+    quantity = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.product.name} - Qty: {self.quantity}"
+
+    @classmethod
+    def add_inventory(cls, sku, quantity):
+        try:
+            inventory = cls.objects.get(product__sku=sku)
+            inventory.quantity += quantity
+            inventory.save()
+            return inventory, False  #
+        except cls.DoesNotExist:
+            try:
+                product = Product.objects.get(sku=sku)
+            except Product.DoesNotExist:
+                raise ObjectDoesNotExist("Product with given SKU does not exist.")
+            inventory = cls.objects.create(product=product, quantity=quantity)
+            return inventory, True 
+
