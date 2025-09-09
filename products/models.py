@@ -41,6 +41,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
     
+    
+    
 
 User = settings.AUTH_USER_MODEL
 
@@ -74,3 +76,4 @@ class Product(models.Model):
             return super().save()
     def __str__(self):
         return self.name
+    

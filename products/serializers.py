@@ -4,5 +4,7 @@ from .models import Product
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    model = Product
-    fields = ("name", "category", "unit_price","sku", "quantity,")
+    class Meta:
+        model = Product
+    # fields = ["name", "category", "unit_price","sku", "quantity"]
+        fields = "__all__"

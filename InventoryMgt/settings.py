@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "dj_rest_auth",
     "dj_rest_auth.registration",
-
+    "drf_yasg",
 ]
 
 
@@ -145,7 +145,7 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL= "products.CustomUser"
 REST_FRAMEWORK = {
-    "DEFAULT_PERMISSSION_CLASSES":[
+    "DEFAULT_PERMISSION_CLASSES":[
             'rest_framework.permissions.IsAuthenticated',
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [

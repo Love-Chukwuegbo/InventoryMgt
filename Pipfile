@@ -12,6 +12,9 @@ djangorestframework = "*"
 pillow = "*"
 dj-rest-auth = "*"
 django-allauth = "*"
+pyyaml = "*"
+uritemplate = "*"
+drf-yasg = "*"
 
 [dev-packages]
 
