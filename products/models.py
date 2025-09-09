@@ -91,7 +91,7 @@ class ProductInventory(models.Model):
     quantity = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return f"{self.product.name} - Qty: {self.quantity}"
+        return f"{self.product.name}"
 
     @classmethod
     def add_inventory(cls, sku, quantity):
