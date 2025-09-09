@@ -73,10 +73,10 @@ class Product(models.Model):
     created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
     
 
-    def save(self):
+    def save(self,*args, **kwargs):
         if not self.sku:
             self.sku = str(uuid.uuid4()).replace('-', "" )[ :12]
-            return super().save()
+        super().save(*args , **kwargs)
     def __str__(self):
         return self.name
 

@@ -4,11 +4,13 @@ from .views import ProductViewSet,ProductInventoryList
 
 
 router = DefaultRouter()
-router.register(r"product", ProductViewSet)
+router.register(r"products", ProductViewSet)
 
 
 urlpatterns = [
+
     path("", include(router.urls)),
-    path("inventory", ProductInventoryList),
+    path("inventory/", ProductInventoryList.as_view()),
+   
     
 ]

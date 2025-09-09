@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, ProductCategory
+from .models import Product, ProductInventory
 
 
 
@@ -9,7 +9,7 @@ class ProductSerializer(serializers.ModelSerializer):
     # fields = ["name", "category", "unit_price","sku", "quantity"]
         fields = "__all__"
 
-class ProductInventoryList(serializers.ModelSerializer):
+class ProductInventorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = ProductCategory
+        model = ProductInventory
         fields ="__all__"
